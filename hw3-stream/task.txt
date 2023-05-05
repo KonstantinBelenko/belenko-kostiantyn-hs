@@ -1,0 +1,14 @@
+Use `streams` module to write a simple text indexing program.
+It should:
+
+1. Read a text file
+2. Split input to separate words divided by a delimiter (`space, new line` characters)
+3. Filter non-text symbols (f.e. `,`)
+4. Index text into a vector - array of numbers. The position in array represents an order in all input words sorted alphabetically. The value is a number of appearances of a certain word in text.
+5. Output result vector to a file.
+
+Examples:
+- `a c b b` -> potential intermediate representation { a: 1, b: 2, c: 1 } -> `[1, 2, 1]`
+- `ab cb bss b` -> `[1, 1, 1, 1]`
+- `ab, cb, bss, cb, b, cb` -> `[1, 1, 1, 3]`
+- `alex, alex, juan, dima` -> `[2, 1, 1]`
