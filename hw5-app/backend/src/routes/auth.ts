@@ -1,12 +1,12 @@
-const router = require('express').Router()
-const bcrypt = require('bcryptjs')
-const jwt = require('jsonwebtoken')
-const { registerValidation, loginValidation } = require('../validations.js')
+import { Router, Request, Response } from 'express'
+import bcrypt from 'bcryptjs'
+import jwt from 'jsonwebtoken'
+import { registerValidation, loginValidation } from '../validations'
+import User from '../models/UserModel'
 
-const User = require('../models/UserModel')
+const router = Router()
 
-// Routers
-router.post('/register', async (req, res) => {
+router.post('/register', async (req: Request, res: Response) => {
     // Validation check
     const { error } = registerValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
     const hashedPassword = bcrypt.hashSync(req.body.password, salt)
 
     // Save user
-    const user = User({
+    const user = new User({
         email: req.body.email,
         name: req.body.name,
         password: hashedPassword,
@@ -30,16 +30,16 @@ router.post('/register', async (req, res) => {
         const newUser = await user.save()
         res.send({ user: newUser._id })
     } catch (error) {
-        res.send({ message: error })
+        res.status(400).send({ message: error })
     }
 })
 
-router.post('/login', async (req, res) => {
+router.post('/login', async (req: Request, res: Response) => {
     // Validation check
     const { error } = loginValidation(req.body)
     if (error) return res.status(400).send(error.details[0].message)
 
-    // Email existance check
+    // Email existence check
     const registeredUser = await User.findOne({ email: req.body.email })
     if (!registeredUser)
         return res.status(400).send('User with this email does not exist')
@@ -53,8 +53,11 @@ router.post('/login', async (req, res) => {
         return res.status(400).send('Email or Password do not match')
 
     // Create and assign JWT
-    const token = jwt.sign({ _id: registeredUser._id }, process.env.JWT_SECRET)
+    const token = jwt.sign(
+        { _id: registeredUser._id },
+        process.env.JWT_SECRET as string
+    )
     res.header('auth-token', token).send(token)
 })
 
-module.exports = router
+export default router
