@@ -6,6 +6,7 @@ import dotenv from 'dotenv'
 import homeRouter from './routes/home'
 import authRoutes from './routes/auth'
 import privateRoutes from './routes/privateRoutes'
+import pasteRoutes from './routes/pasteRoutes'
 
 // Load environment variables
 dotenv.config()
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use('/', homeRouter)
 app.use('/api/private', privateRoutes)
 app.use('/api/user', authRoutes)
+app.use('/api/pastes', pasteRoutes)
 
 export const connectDatabase = async () => {
     // Connect to Database

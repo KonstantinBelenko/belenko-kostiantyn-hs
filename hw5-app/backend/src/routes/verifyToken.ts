@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
+import UserModel from '../models/UserModel'
 
 interface TokenPayload {
     // specify the properties of the payload here
@@ -10,7 +11,7 @@ interface AuthenticatedRequest extends Request {
     user?: TokenPayload
 }
 
-const authenticateUser = (
+const authenticateUser = async (
     req: AuthenticatedRequest,
     res: Response,
     next: NextFunction
@@ -23,7 +24,12 @@ const authenticateUser = (
             token,
             process.env.JWT_SECRET as string
         ) as TokenPayload
-        req.user = verified
+
+        // Fetch the user from the database
+        const user = await UserModel.findById(verified._id)
+        if (!user) throw new Error('User does not exist')
+
+        req.user = user
     } catch (error) {
         res.status(400).send({ message: error })
         return

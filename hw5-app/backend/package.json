@@ -2,7 +2,7 @@
     "name": "paste-bob",
     "version": "1.0.0",
     "description": "paste-bin but it's paste-bob",
-    "main": "app.js",
+    "main": "server.js",
     "author": "Not-bob",
     "license": "MIT",
     "private": false,
@@ -13,13 +13,14 @@
         "cors": "^2.8.5",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
+        "express-validator": "^7.0.1",
         "jsonwebtoken": "^9.0.0",
         "mongoose": "^7.1.1",
         "prettier": "^2.8.8"
     },
     "scripts": {
-        "start": "node ./dist/app.js",
-        "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/app.ts",
+        "start": "node ./dist/server.js",
+        "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/server.ts",
         "build": "tsc",
         "test": "jest --config=jest.config.js"
     },
