@@ -1,0 +1,28 @@
+@keyframes rainbow {
+	0% {
+		background: #ff0000;
+		transform: rotate(0deg);
+	}
+	14% {
+		background: #ff7f00;
+	}
+	28% {
+		background: #ffff00;
+	}
+	42% {
+		background: #00ff00;
+	}
+	57% {
+		background: #0000ff;
+	}
+	71% {
+		background: #4b0082;
+	}
+	85% {
+		background: #8b00ff;
+	}
+	100% {
+		background: #ff0000;
+		transform: rotate(360deg);
+	}
+}

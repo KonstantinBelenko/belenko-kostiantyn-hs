@@ -1,3 +1,5 @@
+import config from '$lib/config';
+
 /**
  * @param {any} fetch
  */
@@ -9,7 +11,7 @@ export default async function isAuthed(fetch) {
 		return false;
 	}
 
-	const res = await fetch('http://192.168.20.118:3000/api/private/validate', {
+	const res = await fetch(`${config.apiUrl}/api/private/validate`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
