@@ -26,21 +26,21 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd backend
+          cd hw5-app/backend
           npm ci
           cd ../frontend
           npm ci
 
       - name: Build
         run: |
-          cd backend
+          cd hw5-app/backend
           npm run build
           cd ../frontend
           npm run build
 
       - name: Test
         run: |
-          cd backend
+          cd hw5-app/backend
           npm run test
           cd ../frontend
           npm run test
